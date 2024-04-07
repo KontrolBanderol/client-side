@@ -5,17 +5,16 @@ import { useEffect, useState } from "react";
 import Logotype from "@/shared/Logotype";
 import NavBar from "@/shared/NavBar";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const handleScroll = () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
 
-    if (scrollTop > 50) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
+  const handleScroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 50);
+    setPrevScrollPos(currentScrollPos);
   };
 
   useEffect(() => {
@@ -23,20 +22,24 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [prevScrollPos, visible]);
   return (
     <div
       className={cn(
-        `flex flex-row justify-between w-screen fixed backdrop-blur-md border-b top-0 transition-all`,
-        isScrolled ? "top-[-100px]" : ""
+        `flex flex-row items-center justify-between w-screen fixed backdrop-blur-md border-b top-0 transition-all`,
+        !visible ? "top-[-100px]" : "top-0"
       )}
     >
       <div className="flex flex-row justify-between px-4 py-2 w-screen">
         <Logotype />
         <NavBar />
         <div className="flex flex-row gap-3">
-          <Button>Войти</Button>
-          <Button variant={"secondary"}>Зарегистрироваться</Button>
+          <Button>
+            <Link href={"/signin"}>Войти</Link>
+          </Button>
+          <Button variant={"secondary"}>
+            <Link href={"/signup"}>Зарегистрироваться</Link>
+          </Button>
         </div>
       </div>
     </div>
