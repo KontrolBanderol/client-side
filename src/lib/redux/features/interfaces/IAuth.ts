@@ -14,3 +14,7 @@ export interface loginRes {
     userModel: UserData;
   };
 }
+
+export interface forgotReq {
+  email: string;
+}

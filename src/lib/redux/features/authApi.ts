@@ -1,6 +1,6 @@
 import { getRefreshToken } from "@/lib/cookie";
 import { apiSlice } from "../api/apiSlice";
-import { loginReq, loginRes } from "./interfaces/IAuth";
+import { forgotReq, loginReq, loginRes } from "./interfaces/IAuth";
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<loginRes, loginReq>({
@@ -27,7 +27,7 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    forgotPassword: builder.mutation({
+    forgotPassword: builder.mutation<void, forgotReq>({
       query: (data) => ({
         url: `auth/forgot-password`,
         method: "POST",
