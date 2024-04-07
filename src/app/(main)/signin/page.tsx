@@ -1,8 +1,19 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+
+import { formSchema } from "./signin-schema";
+import { z } from "zod";
 import {
   Card,
   CardContent,
@@ -11,23 +22,70 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
-export default function SignIn() {
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useForm } from "react-hook-form";
+import spaceBarParcer from "@/lib/spaceBarParcer";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useLoginMutation } from "@/lib/redux/features/authApi";
+import Logotype from "@/shared/Logotype";
+import { useRouter } from "next/navigation";
+import { setToken } from "@/lib/cookie";
+import { useAuth } from "@/lib/hooks/useAuth";
+
+export default function SignInPage() {
+  // Серверные функции
+  const [login, { isLoading }] = useLoginMutation();
+  const router = useRouter();
+  const { updateAuthInfo } = useAuth();
+  // Задаем форму
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      login: "",
+      password: "",
+    },
+  });
+
+  // Собираем информацию с форм
+  const signin = async (data: z.infer<typeof formSchema>) => {
+    const payload = {
+      login: data.login,
+      password: data.password,
+    };
+    return login(payload).unwrap();
+  };
+
+  // Главная функция
+  const handleClick = (data: z.infer<typeof formSchema>) => {
+    toast.promise(signin(data), {
+      loading: "Входим в аккаунт...",
+      success: (response) => {
+        form.reset();
+        setToken(
+          response.result.tokens.accessToken,
+          response.result.tokens.refreshToken
+        );
+        updateAuthInfo(response.result.userModel, true);
+        router.push("/app");
+        return `Рады вас видеть ${response.result.userModel.fullname}`;
+      },
+      error: "Проверьте корректность введенных данных",
+    });
+  };
   return (
-    <>
-      <div className="w-screen h-screen lg:grid lg:min-h-[600px] lg:grid-cols-1 xl:min-h-[800px]">
+    <Form {...form}>
+      <form
+        className="w-screen h-screen lg:grid lg:min-h-[600px] lg:grid-cols-1 xl:min-h-[800px]"
+        onSubmit={form.handleSubmit(handleClick)}
+      >
         <div className="flex items-center justify-center py-12 h-full">
           <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
               <h1 className="text-3xl font-bold flex justify-center gap-3 mr-3">
-                <Image
-                  src="/logo-dark.svg"
-                  alt="Image"
-                  width="960"
-                  height="540"
-                  className="h-[36px] w-[36px] object-fill"
-                />
+                <Logotype />
                 Войти
               </h1>
               <p className="text-balance text-muted-foreground">
@@ -37,11 +95,25 @@ export default function SignIn() {
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="login">Логин</Label>
-                <Input
-                  id="login"
-                  type="text"
-                  placeholder="deadlinevchera"
-                  required
+                <FormField
+                  control={form.control}
+                  name="login"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            id="login"
+                            type="text"
+                            placeholder="deadlinevchera"
+                            {...field}
+                            onKeyDown={spaceBarParcer}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs" />
+                      </FormItem>
+                    );
+                  }}
                 />
               </div>
 
@@ -49,11 +121,25 @@ export default function SignIn() {
                 <div className="flex items-center">
                   <Label htmlFor="password">Пароль</Label>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  placeholder="qwerty12Q!"
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            id="password"
+                            type="password"
+                            placeholder="qwerty12Q!"
+                            {...field}
+                            onKeyDown={spaceBarParcer}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs" />
+                      </FormItem>
+                    );
+                  }}
                 />
                 <Dialog>
                   <DialogTrigger className="ml-auto inline-block text-sm underline">
@@ -100,7 +186,7 @@ export default function SignIn() {
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </form>
+    </Form>
   );
 }

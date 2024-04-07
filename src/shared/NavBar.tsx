@@ -14,6 +14,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Logotype from "@/shared/Logotype";
+import Image from "next/image";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -67,7 +68,20 @@ export default function NavBar() {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
-                    <Logotype />
+                    <Image
+                      src="/logo-dark.svg"
+                      className="dark:hidden"
+                      alt="Logotype"
+                      width={36}
+                      height={36}
+                    />
+                    <Image
+                      src="/logo-light.svg"
+                      className="light:hidden"
+                      alt="Logotype"
+                      width={36}
+                      height={36}
+                    />
                     <div className="mb-2 mt-4 text-lg font-medium">
                       shadcn/ui
                     </div>

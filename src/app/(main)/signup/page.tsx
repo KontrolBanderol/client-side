@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Logotype from "@/shared/Logotype";
 export default function SignUp() {
   return (
     <div className="w-screen h-screen lg:grid lg:min-h-[600px] lg:grid-cols-1 xl:min-h-[800px]">
@@ -10,13 +11,7 @@ export default function SignUp() {
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold flex justify-center gap-3 mr-3">
-              <Image
-                src="/logo-dark.svg"
-                alt="Image"
-                width="960"
-                height="540"
-                className="h-[36px] w-[36px] object-fill"
-              />
+              <Logotype />
               Создать аккаунт
             </h1>
             <p className="text-balance text-muted-foreground">

@@ -4,6 +4,7 @@ import Header from "@/widgets/Header";
 import Link from "next/link";
 import DataAndMetrics from "@/widgets/dataMetrics";
 import PromoSection from '@/widgets/PromoSection/PromoSection'
+import PromoSection from "@/widgets/PromoSection/PromoSection";
 import PopularCategories from "@/widgets/PopularCategories/PopularCategories";
 export default function Home() {
   return (

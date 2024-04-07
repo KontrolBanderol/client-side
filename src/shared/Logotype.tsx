@@ -7,7 +7,20 @@ export default function Logotype() {
       href={"/"}
       className="hover:opacity-90 transition-all flex items-center justify-center"
     >
-      <Image src="/logo-dark.svg" alt="Logotype" width={36} height={36} />
+      <Image
+        src="/logo-dark.svg"
+        alt="Logotype"
+        width={36}
+        height={36}
+        className="dark:hidden"
+      />
+      <Image
+        src="/logo-light.svg"
+        alt="Logotype"
+        width={36}
+        height={36}
+        className="light:hidden"
+      />
     </Link>
   );
 }
