@@ -1,13 +1,14 @@
 "use client";
-
 import Logotype from "@/shared/Logotype";
 import Header from "@/widgets/Header";
 import Link from "next/link";
-
+import PromoSection from '@/widgets/PromoSection/PromoSection'
+import PopularCategories from "@/widgets/PopularCategories/PopularCategories";
 export default function Home() {
   return (
     <main>
-      <div className="h-[500vh]"></div>
+      <PromoSection />
+      <PopularCategories />
     </main>
   );
 }
