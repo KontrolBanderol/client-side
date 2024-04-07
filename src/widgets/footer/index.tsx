@@ -1,8 +1,8 @@
-import css from './footer.module.scss'
-import Image from "next/image"
+import css from "./footer.module.scss"
+import Image from "next/image" // Обновлено
 import Link from "next/link"
 import { cn } from "@/lib/utils"
-import Logotype from '@/shared/Logotype'
+import Logotype from "@/shared/Logotype"
 import LinkedIn from "@/../public/FooterSocialIcons/LinkedIn.svg"
 import Telegram from "@/../public/FooterSocialIcons/Telegram.svg"
 import GitHub from "@/../public/FooterSocialIcons/GitHub.svg"
@@ -29,8 +29,8 @@ const footerData: Record<string, FooterSection> = {
          { text: "Link3", url: "/" },
          { text: "Link4", url: "/" },
          { text: "Link5", url: "/" },
-         { text: "Link6", url: "/" }
-      ]
+         { text: "Link6", url: "/" },
+      ],
    },
    experts: {
       title: "Специалисты",
@@ -40,8 +40,8 @@ const footerData: Record<string, FooterSection> = {
          { text: "Link3", url: "/" },
          { text: "Link4", url: "/" },
          { text: "Link5", url: "/" },
-         { text: "Link6", url: "/" }
-      ]
+         { text: "Link6", url: "/" },
+      ],
    },
    news: {
       title: "Новости",
@@ -51,8 +51,8 @@ const footerData: Record<string, FooterSection> = {
          { text: "Link3", url: "/" },
          { text: "Link4", url: "/" },
          { text: "Link5", url: "/" },
-         { text: "Link6", url: "/" }
-      ]
+         { text: "Link6", url: "/" },
+      ],
    },
    more: {
       title: "Ещё",
@@ -62,8 +62,8 @@ const footerData: Record<string, FooterSection> = {
          { text: "Link3", url: "/" },
          { text: "Link4", url: "/" },
          { text: "Link5", url: "/" },
-         { text: "Link6", url: "/" }
-      ]
+         { text: "Link6", url: "/" },
+      ],
    },
    inProgress: {
       title: "In Progress",
@@ -73,27 +73,29 @@ const footerData: Record<string, FooterSection> = {
          { text: "Link3", url: "/" },
          { text: "Link4", url: "/" },
          { text: "Link5", url: "/" },
-         { text: "Link6", url: "/" }
-      ]
-   }
+         { text: "Link6", url: "/" },
+      ],
+   },
 }
 
 export default function Footer() {
    return (
       <footer
          className={cn(
-            css.wrapper,
-            "bg-light-main-bg-main dark:bg-dark-main-bg-main"
+            css.wrapper
          )}
       >
          <div className={css.items}>
-            {Object.values(footerData).map(section => (
-               <div key={section.title} className={cn(css.item, "text-light-text-main-50")}>
+            {Object.values(footerData).map((section, index: number) => (
+               <div
+                  key={index}
+                  className={cn(css.item, "text-light-text-main-50")}
+               >
                   <h3 className='text-light-text-main-100 dark:text-dark-text-main-100'>
                      {section.title}
                   </h3>
-                  {section.links.map(link => (
-                     <Link key={link.url} href={link.url}>
+                  {section.links.map((link, index: number) => (
+                     <Link key={index} href={link.url}>
                         {link.text}
                      </Link>
                   ))}
@@ -102,9 +104,7 @@ export default function Footer() {
          </div>
          <div className={cn(css.line, "bg-light-text-main-50")}></div>
          <div className={css.underfooter}>
-            <Link href={"/"} className={css.logotype}>
-               <Logotype />
-            </Link>
+            <Logotype />
             <div className={css.socialIcons}>
                <Link href={"/"}>
                   <Image
