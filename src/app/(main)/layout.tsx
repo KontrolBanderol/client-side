@@ -33,9 +33,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={inter.className}>
-        <div className="w-screen px-3">
-          <Header />
-        </div>
+        <Header />
         {children}
       </body>
     </html>

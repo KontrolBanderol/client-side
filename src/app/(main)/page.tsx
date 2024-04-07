@@ -7,9 +7,11 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <Logotype />
-      <Header />
-      <Link href={"/signin"}>Login</Link>
+      <div className="h-[500vh]">
+        <h1>asdasd</h1>
+        <h1>asdasd</h1> <h1>asdasd</h1> <h1>asdasd</h1> <h1>asdasd</h1>{" "}
+        <h1>asdasd</h1>
+      </div>
     </main>
   );
 }
