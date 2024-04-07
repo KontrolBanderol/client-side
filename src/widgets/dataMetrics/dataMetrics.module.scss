@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  
+    max-width: 1278px;
+    width: 100vw;
+  
+    padding: 90px 20px;
+  
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 50px;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+  }
+  .cardsGroup {
+    padding: 30px 0px;
+  }

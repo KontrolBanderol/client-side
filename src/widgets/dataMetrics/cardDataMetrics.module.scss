@@ -1,0 +1,37 @@
+.groupBtn {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+  
+    gap: 25px;
+  
+    align-self: stretch;
+    flex-wrap: wrap;
+  
+    max-width: 1428px;
+  }
+  
+  .cardWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    gap: 5px;
+  
+    border-radius: 10px;
+  
+    .title {
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+    .description {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+  }

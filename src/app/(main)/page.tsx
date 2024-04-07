@@ -2,6 +2,7 @@
 import Logotype from "@/shared/Logotype";
 import Header from "@/widgets/Header";
 import Link from "next/link";
+import DataAndMetrics from "@/widgets/dataMetrics";
 import PromoSection from '@/widgets/PromoSection/PromoSection'
 import PopularCategories from "@/widgets/PopularCategories/PopularCategories";
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
     <main>
       <PromoSection />
       <PopularCategories />
+      <DataAndMetrics />
     </main>
   );
 }

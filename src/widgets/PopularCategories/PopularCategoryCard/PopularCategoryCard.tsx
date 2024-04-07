@@ -19,7 +19,7 @@ export default function PopularCategoryCard({
    textLink,
 }: ICategoriesCardProps) {
    return (
-      <article className={cn(css.wrapper, "bg-")}>
+      <article className={cn(css.wrapper)}>
          <Image
             alt='Icon'
             src={"/categoryIcons/" + icon}
