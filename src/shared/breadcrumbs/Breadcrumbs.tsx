@@ -33,7 +33,7 @@ export default function Breadcrumbs({ data }: Props) {
                 <BreadcrumbPage>{item.title}</BreadcrumbPage>
               ) : (
                 <BreadcrumbLink asChild>
-                  <Link href="#">{item.title}</Link>
+                  <Link href={item.link}>{item.title}</Link>
                 </BreadcrumbLink>
               )}
             </BreadcrumbItem>
