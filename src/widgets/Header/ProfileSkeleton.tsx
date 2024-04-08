@@ -5,6 +5,7 @@ export default function ProfileSkeleton() {
     <div className="flex flex-row gap-3">
       <Skeleton className="w-[73px]" />
       <Skeleton className="w-[177px]" />
+      <Skeleton className="w-[40px]" />
     </div>
   );
 }

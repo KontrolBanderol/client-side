@@ -19,7 +19,7 @@ export default function Logotype() {
         alt="Logotype"
         width={36}
         height={36}
-        className="light:hidden"
+        className="dark:visible hidden"
       />
     </Link>
   );

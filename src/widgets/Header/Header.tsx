@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <div
       className={cn(
-        `flex z-[9999999] flex-row items-center justify-between w-screen fixed backdrop-blur-md border-b top-0 transition-all`,
+        `flex z-[9999] flex-row items-center justify-between w-screen fixed backdrop-blur-md border-b top-0 transition-all`,
         !visible ? "top-[-100px]" : "top-0"
       )}
     >

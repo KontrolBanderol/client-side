@@ -77,7 +77,7 @@ export default function NavBar() {
                     />
                     <Image
                       src="/logo-light.svg"
-                      className="light:hidden"
+                      className="dark:visible hidden"
                       alt="Logotype"
                       width={36}
                       height={36}
