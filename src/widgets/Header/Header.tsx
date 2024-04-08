@@ -8,8 +8,14 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { LogOut } from "lucide-react";
+import ProfileSkeleton from "./ProfileSkeleton";
+import dynamic from "next/dynamic";
 
 export default function Header() {
+  const Profile = dynamic(() => import("./Profile"), {
+    loading: () => <ProfileSkeleton />,
+    ssr: false,
+  });
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
 
@@ -25,7 +31,6 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [prevScrollPos, visible]);
-  const { isSignedIn } = useAuth();
   return (
     <div
       className={cn(
@@ -36,28 +41,7 @@ export default function Header() {
       <div className="flex flex-row justify-between px-10 py-2 w-screen">
         <Logotype />
         <NavBar />
-
-        {isSignedIn ? (
-          <div className="flex flex-row gap-3">
-            <Button>
-              <Link href={"/app"}>Перейти в приложение</Link>
-            </Button>
-            <Button variant={"ghost"}>
-              <Link href={"/signin"}>
-                <LogOut />
-              </Link>
-            </Button>
-          </div>
-        ) : (
-          <div className="flex flex-row gap-3">
-            <Button>
-              <Link href={"/signin"}>Войти</Link>
-            </Button>
-            <Button variant={"secondary"}>
-              <Link href={"/signup"}>Зарегистрироваться</Link>
-            </Button>
-          </div>
-        )}
+        <Profile />
       </div>
     </div>
   );
