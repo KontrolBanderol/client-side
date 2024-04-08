@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+
 import {
    ChevronLeft,
    Home,
@@ -50,7 +51,6 @@ import {
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
    Table,
    TableBody,
@@ -61,465 +61,242 @@ import {
 } from "@/components/ui/table"
 import { Textarea } from "@/components/ui/textarea"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import {
-   Tooltip,
-   TooltipContent,
-   TooltipProvider,
-   TooltipTrigger,
-} from "@/components/ui/tooltip"
+import Breadcrumbs from "@/shared/breadcrumbs/Breadcrumbs"
 import Page from "@/shared/containers/Page"
-
+import Cards from "@/shared/card/Card"
 export default function Add() {
+   const breadcrumb_data = [
+      { link: "/app", title: "Главная" },
+      { link: "/app/products", title: "Продукты" },
+      { link: "", title: "Добавить продукт" },
+   ]
    return (
       <Page>
          <div className='flex flex-col sm:gap-4 sm:py-4 sm:pl-14 pt-[56px]'>
             <header className='sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
-       
-               <Breadcrumb className='hidden md:flex'>
-                  <BreadcrumbList>
-                     <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                           <Link href='/app'>Главная</Link>
-                        </BreadcrumbLink>
-                     </BreadcrumbItem>
-                     <BreadcrumbSeparator />
-                     <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                           <Link href='/app/products'>Продукты</Link>
-                        </BreadcrumbLink>
-                     </BreadcrumbItem>
-                     <BreadcrumbSeparator />
-                     <BreadcrumbItem>
-                        <BreadcrumbPage>Добавить продукт</BreadcrumbPage>
-                     </BreadcrumbItem>
-                  </BreadcrumbList>
-               </Breadcrumb>
-               <div className='relative ml-auto flex-1 md:grow-0'>
-                  <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
-                  <Input
-                     type='search'
-                     placeholder='Search...'
-                     className='w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]'
-                  />
-               </div>
-               <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                     <Button
-                        variant='outline'
-                        size='icon'
-                        className='overflow-hidden rounded-full'
-                     >
-                        <Image
-                           src='/placeholder-user.jpg'
-                           width={36}
-                           height={36}
-                           alt='Avatar'
-                           className='overflow-hidden rounded-full'
-                        />
-                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align='end'>
-                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                     <DropdownMenuSeparator />
-                     <DropdownMenuItem>Settings</DropdownMenuItem>
-                     <DropdownMenuItem>Support</DropdownMenuItem>
-                     <DropdownMenuSeparator />
-                     <DropdownMenuItem>Logout</DropdownMenuItem>
-                  </DropdownMenuContent>
-               </DropdownMenu>
+               <Breadcrumbs data={breadcrumb_data} />
             </header>
             <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8'>
                <div className='mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4'>
                   <div className='flex items-center gap-4'>
-                     <Button variant='outline' size='icon' className='h-7 w-7'>
-                        <ChevronLeft className='h-4 w-4' />
-                        <span className='sr-only'>Back</span>
-                     </Button>
+                     <Link href={"/app/products/"}>
+                        <Button
+                           variant='outline'
+                           size='icon'
+                           className='h-7 w-7'
+                        >
+                           <ChevronLeft className='h-4 w-4' />
+                           <span className='sr-only'>Back</span>
+                        </Button>
+                     </Link>
                      <h1 className='flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0'>
-                        Pro Controller
+                        Добавить продукт
                      </h1>
                      <Badge variant='outline' className='ml-auto sm:ml-0'>
-                        In stock
+                        На склад
                      </Badge>
                      <div className='hidden items-center gap-2 md:ml-auto md:flex'>
                         <Button variant='outline' size='sm'>
-                           Discard
+                           Отменить
                         </Button>
-                        <Button size='sm'>Save Product</Button>
+                        <Button size='sm'>Сохранить</Button>
                      </div>
                   </div>
                   <div className='grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8'>
                      <div className='grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8'>
-                        <Card x-chunk='dashboard-07-chunk-0'>
-                           <CardHeader>
-                              <CardTitle>Product Details</CardTitle>
-                              <CardDescription>
-                                 Lipsum dolor sit amet, consectetur adipiscing
-                                 elit
-                              </CardDescription>
-                           </CardHeader>
-                           <CardContent>
-                              <div className='grid gap-6'>
-                                 <div className='grid gap-3'>
-                                    <Label htmlFor='name'>Name</Label>
-                                    <Input
-                                       id='name'
-                                       type='text'
-                                       className='w-full'
-                                       defaultValue='Gamer Gear Pro Controller'
-                                    />
-                                 </div>
-                                 <div className='grid gap-3'>
-                                    <Label htmlFor='description'>
-                                       Description
-                                    </Label>
-                                    <Textarea
-                                       id='description'
-                                       defaultValue='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc.'
-                                       className='min-h-32'
-                                    />
-                                 </div>
+                        <Cards
+                           title='Детали продукта'
+                           description='Введите название, и описание продукта, который
+                                 хотите добавить'
+                           x_chunk='dashboard-07-chunk-0'
+                        >
+                           <div className='grid gap-6'>
+                              <div className='grid gap-3'>
+                                 <Label htmlFor='name'>Название</Label>
+                                 <Input
+                                    id='name'
+                                    type='text'
+                                    className='w-full'
+                                    placeholder='Беспроводная мышь Logitech'
+                                 />
                               </div>
-                           </CardContent>
-                        </Card>
-                        <Card x-chunk='dashboard-07-chunk-1'>
-                           <CardHeader>
-                              <CardTitle>Stock</CardTitle>
-                              <CardDescription>
-                                 Lipsum dolor sit amet, consectetur adipiscing
-                                 elit
-                              </CardDescription>
-                           </CardHeader>
-                           <CardContent>
-                              <Table>
-                                 <TableHeader>
-                                    <TableRow>
-                                       <TableHead className='w-[100px]'>
-                                          SKU
-                                       </TableHead>
-                                       <TableHead>Stock</TableHead>
-                                       <TableHead>Price</TableHead>
-                                       <TableHead className='w-[100px]'>
-                                          Size
-                                       </TableHead>
-                                    </TableRow>
-                                 </TableHeader>
-                                 <TableBody>
-                                    <TableRow>
-                                       <TableCell className='font-semibold'>
-                                          GGPC-001
-                                       </TableCell>
-                                       <TableCell>
-                                          <Label
-                                             htmlFor='stock-1'
-                                             className='sr-only'
-                                          >
-                                             Stock
-                                          </Label>
-                                          <Input
-                                             id='stock-1'
-                                             type='number'
-                                             defaultValue='100'
-                                          />
-                                       </TableCell>
-                                       <TableCell>
-                                          <Label
-                                             htmlFor='price-1'
-                                             className='sr-only'
-                                          >
-                                             Price
-                                          </Label>
-                                          <Input
-                                             id='price-1'
-                                             type='number'
-                                             defaultValue='99.99'
-                                          />
-                                       </TableCell>
-                                       <TableCell>
-                                          <ToggleGroup
-                                             type='single'
-                                             defaultValue='s'
-                                             variant='outline'
-                                          >
-                                             <ToggleGroupItem value='s'>
-                                                S
-                                             </ToggleGroupItem>
-                                             <ToggleGroupItem value='m'>
-                                                M
-                                             </ToggleGroupItem>
-                                             <ToggleGroupItem value='l'>
-                                                L
-                                             </ToggleGroupItem>
-                                          </ToggleGroup>
-                                       </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableCell className='font-semibold'>
-                                          GGPC-002
-                                       </TableCell>
-                                       <TableCell>
-                                          <Label
-                                             htmlFor='stock-2'
-                                             className='sr-only'
-                                          >
-                                             Stock
-                                          </Label>
-                                          <Input
-                                             id='stock-2'
-                                             type='number'
-                                             defaultValue='143'
-                                          />
-                                       </TableCell>
-                                       <TableCell>
-                                          <Label
-                                             htmlFor='price-2'
-                                             className='sr-only'
-                                          >
-                                             Price
-                                          </Label>
-                                          <Input
-                                             id='price-2'
-                                             type='number'
-                                             defaultValue='99.99'
-                                          />
-                                       </TableCell>
-                                       <TableCell>
-                                          <ToggleGroup
-                                             type='single'
-                                             defaultValue='m'
-                                             variant='outline'
-                                          >
-                                             <ToggleGroupItem value='s'>
-                                                S
-                                             </ToggleGroupItem>
-                                             <ToggleGroupItem value='m'>
-                                                M
-                                             </ToggleGroupItem>
-                                             <ToggleGroupItem value='l'>
-                                                L
-                                             </ToggleGroupItem>
-                                          </ToggleGroup>
-                                       </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableCell className='font-semibold'>
-                                          GGPC-003
-                                       </TableCell>
-                                       <TableCell>
-                                          <Label
-                                             htmlFor='stock-3'
-                                             className='sr-only'
-                                          >
-                                             Stock
-                                          </Label>
-                                          <Input
-                                             id='stock-3'
-                                             type='number'
-                                             defaultValue='32'
-                                          />
-                                       </TableCell>
-                                       <TableCell>
-                                          <Label
-                                             htmlFor='price-3'
-                                             className='sr-only'
-                                          >
-                                             Stock
-                                          </Label>
-                                          <Input
-                                             id='price-3'
-                                             type='number'
-                                             defaultValue='99.99'
-                                          />
-                                       </TableCell>
-                                       <TableCell>
-                                          <ToggleGroup
-                                             type='single'
-                                             defaultValue='s'
-                                             variant='outline'
-                                          >
-                                             <ToggleGroupItem value='s'>
-                                                S
-                                             </ToggleGroupItem>
-                                             <ToggleGroupItem value='m'>
-                                                M
-                                             </ToggleGroupItem>
-                                             <ToggleGroupItem value='l'>
-                                                L
-                                             </ToggleGroupItem>
-                                          </ToggleGroup>
-                                       </TableCell>
-                                    </TableRow>
-                                 </TableBody>
-                              </Table>
-                           </CardContent>
-                           <CardFooter className='justify-center border-t p-4'>
-                              <Button
-                                 size='sm'
-                                 variant='ghost'
-                                 className='gap-1'
-                              >
-                                 <PlusCircle className='h-3.5 w-3.5' />
-                                 Add Variant
-                              </Button>
-                           </CardFooter>
-                        </Card>
-                        <Card x-chunk='dashboard-07-chunk-2'>
-                           <CardHeader>
-                              <CardTitle>Product Category</CardTitle>
-                           </CardHeader>
-                           <CardContent>
-                              <div className='grid gap-6 sm:grid-cols-3'>
-                                 <div className='grid gap-3'>
-                                    <Label htmlFor='category'>Category</Label>
-                                    <Select>
-                                       <SelectTrigger
-                                          id='category'
-                                          aria-label='Select category'
-                                       >
-                                          <SelectValue placeholder='Select category' />
-                                       </SelectTrigger>
-                                       <SelectContent>
-                                          <SelectItem value='clothing'>
-                                             Clothing
-                                          </SelectItem>
-                                          <SelectItem value='electronics'>
-                                             Electronics
-                                          </SelectItem>
-                                          <SelectItem value='accessories'>
-                                             Accessories
-                                          </SelectItem>
-                                       </SelectContent>
-                                    </Select>
-                                 </div>
-                                 <div className='grid gap-3'>
-                                    <Label htmlFor='subcategory'>
-                                       Subcategory (optional)
-                                    </Label>
-                                    <Select>
-                                       <SelectTrigger
-                                          id='subcategory'
-                                          aria-label='Select subcategory'
-                                       >
-                                          <SelectValue placeholder='Select subcategory' />
-                                       </SelectTrigger>
-                                       <SelectContent>
-                                          <SelectItem value='t-shirts'>
-                                             T-Shirts
-                                          </SelectItem>
-                                          <SelectItem value='hoodies'>
-                                             Hoodies
-                                          </SelectItem>
-                                          <SelectItem value='sweatshirts'>
-                                             Sweatshirts
-                                          </SelectItem>
-                                       </SelectContent>
-                                    </Select>
-                                 </div>
+                              <div className='grid gap-3'>
+                                 <Label htmlFor='description'>Описание</Label>
+                                 <Textarea
+                                    id='description'
+                                    placeholder='Беспроводная игровая мышь G304 с поддержкой технологии LIGHTSPEED и отличными рабочими характеристиками создана по последнему слову техники и предлагается по доступной цене.'
+                                    className='min-h-32'
+                                 />
                               </div>
-                           </CardContent>
-                        </Card>
+                           </div>
+                        </Cards>
+                        <Cards
+                           title='Параметры'
+                           description='Введите параметры продукта'
+                           x_chunk='dashboard-07-chunk-1'
+                        >
+                           <Table>
+                              <TableHeader>
+                                 <TableRow>
+                                    <TableHead className='w-[100px] sr-only'></TableHead>
+                                    <TableHead>Стоимость (₽)</TableHead>
+                                    <TableHead>Масса (кг)</TableHead>
+                                    <TableHead className='w-[250px]'>
+                                       Ширина / Высота / Длина (см)
+                                    </TableHead>
+                                 </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                 <TableRow>
+                                    <TableCell className='font-semibold sr-only'>
+                                       GGPC-001
+                                    </TableCell>
+                                    <TableCell>
+                                       <Label
+                                          htmlFor='stock-1'
+                                          className='sr-only'
+                                       >
+                                          Стоимость
+                                       </Label>
+                                       <Input
+                                          id='stock-1'
+                                          type='number'
+                                          defaultValue='100'
+                                       />
+                                    </TableCell>
+                                    <TableCell>
+                                       <Label
+                                          htmlFor='price-1'
+                                          className='sr-only'
+                                       >
+                                          Масса
+                                       </Label>
+                                       <Input
+                                          id='price-1'
+                                          type='number'
+                                          defaultValue='99.99'
+                                       />
+                                    </TableCell>
+                                    <TableCell>
+                                       <div className="flex gap-2">
+                                          <Input type="number" placeholder="Ш"/>
+                                          <Input type="number" placeholder="В"/>
+                                          <Input type="number" placeholder="Д"/>
+                                       </div>
+                                    </TableCell>
+                                 </TableRow>
+                              </TableBody>
+                           </Table>
+                        </Cards>
+                        <Cards
+                           title='Категория продукта'
+                           description='Выберите категорию и подкатегорию продукта из доступного списка'
+                           x_chunk='dashboard-07-chunk-2'
+                        >
+                           <div className='grid gap-6 sm:grid-cols-1'>
+                              <div className='grid gap-3'>
+                                 <Label htmlFor='category'>Категория</Label>
+                                 <Select>
+                                    <SelectTrigger
+                                       id='category'
+                                       aria-label='Select category'
+                                    >
+                                       <SelectValue placeholder='Выберите категорию' />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                       <SelectItem value='clothing'>
+                                          Одежда
+                                       </SelectItem>
+                                       <SelectItem value='electronics'>
+                                          Электроника
+                                       </SelectItem>
+                                       <SelectItem value='accessories'>
+                                          Аксессуары
+                                       </SelectItem>
+                                    </SelectContent>
+                                 </Select>
+                              </div>
+                           </div>
+                        </Cards>
                      </div>
                      <div className='grid auto-rows-max items-start gap-4 lg:gap-8'>
-                        <Card x-chunk='dashboard-07-chunk-3'>
-                           <CardHeader>
-                              <CardTitle>Product Status</CardTitle>
-                           </CardHeader>
-                           <CardContent>
-                              <div className='grid gap-6'>
-                                 <div className='grid gap-3'>
-                                    <Label htmlFor='status'>Status</Label>
-                                    <Select>
-                                       <SelectTrigger
-                                          id='status'
-                                          aria-label='Select status'
-                                       >
-                                          <SelectValue placeholder='Select status' />
-                                       </SelectTrigger>
-                                       <SelectContent>
-                                          <SelectItem value='draft'>
-                                             Draft
-                                          </SelectItem>
-                                          <SelectItem value='published'>
-                                             Active
-                                          </SelectItem>
-                                          <SelectItem value='archived'>
-                                             Archived
-                                          </SelectItem>
-                                       </SelectContent>
-                                    </Select>
-                                 </div>
-                              </div>
-                           </CardContent>
-                        </Card>
-                        <Card
-                           className='overflow-hidden'
-                           x-chunk='dashboard-07-chunk-4'
+                        <Cards
+                           title='Выберите склад'
+                           description='Выберите склад из доступного списка'
+                           x_chunk='dashboard-07-chunk-3'
                         >
-                           <CardHeader>
-                              <CardTitle>Product Images</CardTitle>
-                              <CardDescription>
-                                 Lipsum dolor sit amet, consectetur adipiscing
-                                 elit
-                              </CardDescription>
-                           </CardHeader>
-                           <CardContent>
-                              <div className='grid gap-2'>
-                                 <Image
-                                    alt='Product image'
-                                    className='aspect-square w-full rounded-md object-cover'
-                                    height='300'
-                                    src='/placeholder.svg'
-                                    width='300'
-                                 />
-                                 <div className='grid grid-cols-3 gap-2'>
-                                    <button>
-                                       <Image
-                                          alt='Product image'
-                                          className='aspect-square w-full rounded-md object-cover'
-                                          height='84'
-                                          src='/placeholder.svg'
-                                          width='84'
-                                       />
-                                    </button>
-                                    <button>
-                                       <Image
-                                          alt='Product image'
-                                          className='aspect-square w-full rounded-md object-cover'
-                                          height='84'
-                                          src='/placeholder.svg'
-                                          width='84'
-                                       />
-                                    </button>
-                                    <button className='flex aspect-square w-full items-center justify-center rounded-md border border-dashed'>
-                                       <Upload className='h-4 w-4 text-muted-foreground' />
-                                       <span className='sr-only'>Upload</span>
-                                    </button>
-                                 </div>
+                           <div className='grid gap-6'>
+                              <div className='grid gap-3'>
+                                 <Label htmlFor='status'>Склад</Label>
+                                 <Select>
+                                    <SelectTrigger
+                                       id='status'
+                                       aria-label='Select status'
+                                    >
+                                       <SelectValue placeholder='Выберите склад' />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                       <SelectItem value='draft'>
+                                          Склад - Кемерово
+                                       </SelectItem>
+                                       <SelectItem value='published'>
+                                          Склад - Яшкино
+                                       </SelectItem>
+                                       <SelectItem value='archived'>
+                                          Склад - Анжеро-Судженск
+                                       </SelectItem>
+                                    </SelectContent>
+                                 </Select>
                               </div>
-                           </CardContent>
-                        </Card>
-                        <Card x-chunk='dashboard-07-chunk-5'>
-                           <CardHeader>
-                              <CardTitle>Archive Product</CardTitle>
-                              <CardDescription>
-                                 Lipsum dolor sit amet, consectetur adipiscing
-                                 elit.
-                              </CardDescription>
-                           </CardHeader>
-                           <CardContent>
-                              <div></div>
-                              <Button size='sm' variant='secondary'>
-                                 Archive Product
-                              </Button>
-                           </CardContent>
-                        </Card>
+                           </div>
+                        </Cards>
+                        <Cards
+                           title='Изображение продукта'
+                           description='Загрузите до 4 изображений продукта'
+                           x_chunk='dashboard-07-chunk-4'
+                           className='overflow-hidden'
+                        >
+                           <div className='grid gap-2'>
+                              <Image
+                                 alt='Product image'
+                                 className='aspect-square w-full rounded-md object-cover'
+                                 height='300'
+                                 src='/placeholder.svg'
+                                 width='300'
+                              />
+                              <div className='grid grid-cols-3 gap-2'>
+                                 <button>
+                                    <Image
+                                       alt='Product image'
+                                       className='aspect-square w-full rounded-md object-cover'
+                                       height='84'
+                                       src='/placeholder.svg'
+                                       width='84'
+                                    />
+                                 </button>
+                                 <button>
+                                    <Image
+                                       alt='Product image'
+                                       className='aspect-square w-full rounded-md object-cover'
+                                       height='84'
+                                       src='/placeholder.svg'
+                                       width='84'
+                                    />
+                                 </button>
+                                 <button className='flex aspect-square w-full items-center justify-center rounded-md border border-dashed'>
+                                    <Upload className='h-4 w-4 text-muted-foreground' />
+                                    <span className='sr-only'>Загрузить</span>
+                                 </button>
+                              </div>
+                           </div>
+                        </Cards>
                      </div>
                   </div>
                   <div className='flex items-center justify-center gap-2 md:hidden'>
                      <Button variant='outline' size='sm'>
-                        Discard
+                        Отменить
                      </Button>
-                     <Button size='sm'>Save Product</Button>
+                     <Button size='sm'>Сохранить</Button>
                   </div>
                </div>
             </main>
