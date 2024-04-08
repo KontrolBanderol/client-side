@@ -11,8 +11,29 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-type Props = {};
-export default function Row() {
+type Props = {
+  id: string;
+  name: string;
+  description: string;
+  category: {
+    id: string;
+    name: string;
+  } | null;
+  icon: string | null;
+  size: string;
+  weight: number;
+  price: number;
+};
+export default function Row({
+  id,
+  name,
+  description,
+  category,
+  icon,
+  size,
+  weight,
+  price,
+}: Props) {
   return (
     <TableRow>
       <TableCell className="hidden sm:table-cell">
@@ -20,16 +41,16 @@ export default function Row() {
           alt="Product image"
           className="aspect-square rounded-md object-cover"
           height="64"
-          src="/placeholder-user.jpg"
+          src={icon ? icon : "/placeholder.svg"}
           width="64"
         />
       </TableCell>
-      <TableCell className="font-medium">Laser Lemonade Machine</TableCell>
+      <TableCell className="font-medium">{name}</TableCell>
       <TableCell>
-        <Badge variant="outline">Draft</Badge>
+        <Badge variant="outline">{category?.name}</Badge>
       </TableCell>
-      <TableCell className="hidden md:table-cell">$499.99</TableCell>
-      <TableCell className="hidden md:table-cell">25</TableCell>
+      <TableCell className="hidden md:table-cell">{price}₽</TableCell>
+      <TableCell className="hidden md:table-cell">{}</TableCell>
       <TableCell className="hidden md:table-cell">
         2023-07-12 10:42 AM
       </TableCell>

@@ -50,15 +50,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Breadcrumbs from "@/shared/breadcrumbs/Breadcrumbs";
 import exportToExcel from "@/lib/exportToExcel";
 import Row from "./Row";
+import { ProductsResponse } from "./devdata";
 const breadcrumbs = [
   { title: "Главная", link: "/app/dashboard" },
   { title: "Товары", link: "/app/products" },
 ];
 export default function Products() {
-  const datas = [
-    { name: "John", email: "john@example.com", age: 28 },
-    { name: "Jane", email: "jane@example.com", age: 32 },
-  ];
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 pt-[56px]">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -108,7 +105,7 @@ export default function Products() {
                   size="sm"
                   variant="outline"
                   className="h-8 gap-1"
-                  onClick={() => exportToExcel(datas)}
+                  onClick={() => exportToExcel(ProductsResponse)}
                 >
                   <File className="h-3.5 w-3.5" />
                   <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
@@ -143,15 +140,15 @@ export default function Products() {
                           <span className="sr-only">Изображение</span>
                         </TableHead>
                         <TableHead>Наименование</TableHead>
-                        <TableHead>Статус</TableHead>
+                        <TableHead>Категория</TableHead>
                         <TableHead className="hidden md:table-cell">
                           Цена
                         </TableHead>
                         <TableHead className="hidden md:table-cell">
-                          Всего продано
+                          Всего продано (дописать)
                         </TableHead>
                         <TableHead className="hidden md:table-cell">
-                          Дата добавления
+                          Дата добавления (узнать у бека)
                         </TableHead>
                         <TableHead>
                           <span className="sr-only">Управление</span>
@@ -159,7 +156,19 @@ export default function Products() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      <Row />
+                      {ProductsResponse.map((item) => (
+                        <Row
+                          key={item.id}
+                          id={item.id}
+                          name={item.name}
+                          category={item.category}
+                          description={item.description}
+                          icon={item.icon}
+                          price={item.price}
+                          size={item.size}
+                          weight={item.weight}
+                        />
+                      ))}
                     </TableBody>
                   </Table>
                 </CardContent>
