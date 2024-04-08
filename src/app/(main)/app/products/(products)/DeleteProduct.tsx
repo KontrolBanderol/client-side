@@ -14,11 +14,12 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   id: string;
+  children: React.ReactNode
 };
-export default function DeleteProduct({ id }: Props) {
+export default function DeleteProduct({ id, children }: Props) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>Удалить</AlertDialogTrigger>
+      <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Вы точно хотите удалить товар?</AlertDialogTitle>
