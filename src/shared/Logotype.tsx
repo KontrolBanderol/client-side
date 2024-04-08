@@ -12,14 +12,14 @@ export default function Logotype() {
         alt="Logotype"
         width={36}
         height={36}
-        className="dark:hidden"
+        className="dark:hidden block"
       />
       <Image
         src="/logo-light.svg"
         alt="Logotype"
         width={36}
         height={36}
-        className="dark:visible hidden"
+        className="dark:block hidden"
       />
     </Link>
   );
