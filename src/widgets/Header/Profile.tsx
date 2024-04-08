@@ -10,24 +10,55 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 export default function Profile() {
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, user } = useAuth();
   const { setTheme } = useTheme();
 
   return (
     <div className="flex flex-row gap-3">
-      {isSignedIn ? (
+      {!isSignedIn ? (
         <div className="flex flex-row gap-3">
           <Link href={"/app"}>
             <Button>Перейти в приложение</Button>
           </Link>
-          <Link href={"/signin"}>
-            <Button variant={"ghost"}>
-              <LogOut />
-            </Button>
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="overflow-hidden rounded-full"
+              >
+                <Image
+                  src={user ? user.icon : "/placeholder-user.jpg"}
+                  width={36}
+                  height={36}
+                  alt="Avatar"
+                  className="overflow-hidden rounded-full"
+                />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Мой аккаунт</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Link href={"settings"}>Настройки</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href={"https://t.me/purpletooth"} target="_blank">
+                  Поддержка
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="cursor-pointer">
+                Выход
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       ) : (
         <div className="flex flex-row gap-3">
