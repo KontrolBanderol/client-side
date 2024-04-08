@@ -174,8 +174,7 @@ export default function Products() {
                 </CardContent>
                 <CardFooter>
                   <div className="text-xs text-muted-foreground">
-                    Показано <strong>1-10</strong> из <strong>32</strong>{" "}
-                    товаров
+                    Показано <strong>{ProductsResponse.length}</strong> товаров
                   </div>
                 </CardFooter>
               </Card>

@@ -10,7 +10,10 @@ import {
 import { TableCell, TableRow } from "@/components/ui/table";
 import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useRef, useState } from "react";
+import DeleteProduct from "./DeleteProduct";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 type Props = {
   id: string;
   name: string;
@@ -64,8 +67,16 @@ export default function Row({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Управление</DropdownMenuLabel>
-            <DropdownMenuItem>Изменить</DropdownMenuItem>
-            <DropdownMenuItem>Удалить</DropdownMenuItem>
+            <Link href={`/app/products/${id}/edit`}>
+              <DropdownMenuItem>Изменить</DropdownMenuItem>
+            </Link>
+            <div
+              className={cn(
+                "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+              )}
+            >
+              <DeleteProduct id={id} />
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>
