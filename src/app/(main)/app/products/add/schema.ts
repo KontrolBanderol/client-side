@@ -9,7 +9,7 @@ interface FormData {
    width: number
    height: number
    length: number
-   images: File[] // Изменяем тип изображений на File[]
+   images: File[]
 }
 
 export const formSchema: ZodType<FormData> = z.object({
@@ -37,7 +37,12 @@ export const formSchema: ZodType<FormData> = z.object({
    length: z.number().min(1, {
       message: "Поле длины обязательно для заполнения",
    }),
-   images: z.array(z.any()).min(1, {
-      message: "Необходимо загрузить хотя-бы одну фотографию товара",
-   }),
+   images: z
+      .array(z.any())
+      .min(1, {
+         message: "Необходимо загрузить хотя-бы одну фотографию товара",
+      })
+      .max(3, {
+         message: "Можно загружать только до 3 изображений товара!",
+      }),
 })

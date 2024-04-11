@@ -48,14 +48,23 @@ export default function Add() {
       { link: "/app/products", title: "Продукты" },
       { link: "", title: "Добавить продукт" },
    ]
+   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
    const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
-      const files = e.target.files
-      if (files) {
-         const fileList = Array.from(files)
-         form.setValue("images", fileList)
+      const file = e.target.files?.[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+              if (typeof reader.result === 'string') {
+                  const imageUrl = reader.result;
+                  setUploadedImage(imageUrl);
+                  form.setValue("images", [file]);
+              }
+          };
+          reader.readAsDataURL(file);
       }
-   }
+  };
+  
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
@@ -145,7 +154,10 @@ export default function Add() {
                         </Badge>
                         <div className='hidden items-center gap-2 md:ml-auto md:flex'>
                            <Button
-                              onClick={() => form.reset()}
+                              onClick={() => {
+                                 form.reset()
+                                 setUploadedImage(null)
+                              }}
                               variant='outline'
                               size='sm'
                            >
@@ -488,7 +500,7 @@ export default function Add() {
                            </Cards> */}
                            <Cards
                               title='Изображение продукта'
-                              description='Загрузите до 4 изображений продукта'
+                              description='Загрузите до 3 изображений продукта'
                               x_chunk='dashboard-07-chunk-4'
                               className='overflow-hidden'
                            >
@@ -497,7 +509,7 @@ export default function Add() {
                                     alt='Product image'
                                     className='aspect-square w-full rounded-md object-cover'
                                     height='300'
-                                    src='/placeholder.svg'
+                                    src={uploadedImage || '/placeholder.svg'}
                                     width='300'
                                  />
                                  <div className='grid grid-cols-3 gap-2'>
@@ -539,7 +551,10 @@ export default function Add() {
                      </div>
                      <div className='flex items-center justify-center gap-2 md:hidden'>
                         <Button
-                           onClick={() => form.reset()}
+                           onClick={() => {
+                              form.reset()
+                              setUploadedImage(null)
+                           }}
                            variant='outline'
                            size='sm'
                         >
